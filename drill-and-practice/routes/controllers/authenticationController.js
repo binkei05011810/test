@@ -1,4 +1,4 @@
-import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
+import { bcrypt } from "../../deps.js";
 import * as userService from "../../services/userService.js";
 
 const showRegistrationForm = ({ render }) => {
@@ -59,7 +59,7 @@ const postLoginForm = async ({ request, response, state }) => {
     email: userObj.email,
   });
   
-  response.redirect("/accounts");
+  response.redirect("/topics");
 };
 
 const showLoginForm = ({ render }) => {

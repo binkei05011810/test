@@ -1,5 +1,9 @@
 const showMain = async ({ response, render, state }) => {
-  render("main.eta", {});
+  if (await state.session.get("authenticated")) {
+    render("main.eta", await state.session.get("user"));
+  } else {
+    response.redirect("/auth/login");
+  }
 };
 
 export { showMain };
