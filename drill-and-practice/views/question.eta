@@ -1,0 +1,22 @@
+<h1><%= it.question_text %></h1>
+<form method="POST" action="/topics/<%= it.topic_id %>/questions/<%= it.id %>/options">
+  <label>Add answer</label>
+  <textarea id="option_text" name="option_text"></textarea>
+  <input type="checkbox" id="is_correct" name="is_correct" />
+  <input type="submit" value="Add option" />
+</form>
+
+<h2>Current accounts</h2>
+<% if (it.options && it.options.length > 0) { %>
+  <ul>
+    <% it.options.forEach((option) => { %>
+      <li>
+        <a href="/topics/<%= it.id %>/questions/<%= question.id %>">Account <%= account.id %>: <%= account.name %> (<%= account.balance %>)</a>
+        <form method="POST" action="/topics/<%= it.topic_id %>/questions/<%= it.id %>/options/<%= option.id %>">
+          <input type="submit" value="Add option" />
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+<% } %>
+<h2>Create account</h2>
