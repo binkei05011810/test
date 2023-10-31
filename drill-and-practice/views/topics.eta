@@ -8,17 +8,31 @@
     <% it.topics.forEach((topic) => { %>
       <li>
         <a href="/topics/<%= topic.id %>"><%= topic.name %></a>
-        <form method="POST" action="/topics/<%= topic.id %>/delete">
+        <% if (it.user.admin) { %>
+          <form method="POST" action="/topics/<%= topic.id %>/delete">
             <input type="submit" value="Delete topic" />
-        </form>
-      /li>
+          </form>
+        <% } %>
+      </li>
     <% }); %>
   </ul>
 <% } %>
 
-<h2>Create topic</h2>
-<form method="POST" action="/topics">
-  Name:<br/>
-  <input type="text" name="name" /><br/>
-  <input type="submit" value="Create a new topic!" />
-</form>
+<% if (it.validationErrors) { %>
+  <ul>
+      <% Object.keys(it.validationErrors).forEach((attribute) => { %>
+          <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
+              <li><%= err %></li>
+          <% }); %>
+      <% }); %>
+  </ul>
+<% } %>
+
+<% if (it.user.admin) { %>
+  <h2>Create topic</h2>
+  <form method="POST" action="/topics">
+    Name:<br/>
+    <input type="text" name="name" value="<%= it.name ? it.name : "" %>" /><br/>
+    <input type="submit" value="Create a new topic!" />
+  </form>
+<% } %>
